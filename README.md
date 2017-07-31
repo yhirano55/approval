@@ -1,5 +1,8 @@
 # Approval
 
+[![Build Status](https://travis-ci.org/yhirano55/approval.svg?branch=master)](https://travis-ci.org/yhirano55/approval)
+[![Gem Version](https://badge.fury.io/rb/approval.svg)](https://badge.fury.io/rb/approval)
+
 :ok_woman::no_good:Approval workflow for Rails
 
 ## Installation
@@ -21,7 +24,7 @@ $ bin/rails g approval:install
 Call `acts_as_approval_user` in your resource of user model (`User`, `AdminUser`, `Member` etc):
 
 ```ruby
-class User
+class User < ApplicationRecord
   acts_as_approval_user
 end
 ```
