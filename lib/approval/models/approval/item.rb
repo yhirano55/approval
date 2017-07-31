@@ -51,8 +51,8 @@ module Approval
         record = resource_model.new(params || {})
 
         unless record.valid?
-          record.errors.full_messages.each do |_message|
-            errors.add(:base, "message")
+          record.errors.full_messages.each do |message|
+            errors.add(:base, message)
           end
         end
       end
