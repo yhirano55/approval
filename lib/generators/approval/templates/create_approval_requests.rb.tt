@@ -1,0 +1,19 @@
+class CreateApprovalRequests < ActiveRecord::Migration<%= migration_version %>
+  def change
+    create_table :approval_requests do |t|
+      t.integer  :request_user_id, null: false
+      t.integer  :respond_user_id
+      t.integer  :state,           null: false, limit: 1, default: 0
+      t.datetime :requested_at,    null: false
+      t.datetime :cancelled_at
+      t.datetime :approved_at
+      t.datetime :rejected_at
+
+      t.timestamps
+
+      t.index :request_user_id
+      t.index :respond_user_id
+      t.index :state
+    end
+  end
+end
