@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version     = Approval::VERSION
   s.authors     = ["Yoshiyuki Hirano"]
   s.email       = ["yhirano@me.com"]
-  s.summary     = "Approval workflow for Rails"
+  s.summary     = "Approval flow for Rails"
   s.description = s.summary
   s.homepage    = "https://github.com/yhirano55/approval"
   s.license     = "MIT"
