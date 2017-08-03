@@ -30,7 +30,7 @@
 4. Add `acts_as_approval_resource` to the models you want use approval flow:
 
   ```ruby
-  class Post < ApplicationRecord
+  class Book < ApplicationRecord
     acts_as_approval_resource
   end
   ```
