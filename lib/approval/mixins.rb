@@ -3,9 +3,9 @@ module Approval
     extend ActiveSupport::Concern
 
     class_methods do
-      def acts_as_approval_resource(ignore_fields: [])
+      def acts_as_approval_resource(ignore_fields: %w[id created_at updated_at])
         include ::Approval::Mixins::Resource
-        append_ignore_fields(ignore_fields)
+        assign_ignore_fields(ignore_fields)
       end
 
       def acts_as_approval_user
