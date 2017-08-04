@@ -4,7 +4,7 @@ module Approval
       private
 
         def prepare
-          ::ActiveRecord::Base.transaction do
+          ::Approval::Request.transaction do
             request.lock!
             request.assign_attributes(state: :cancelled, cancelled_at: Time.current, respond_user: user)
             request.comments.new(user: user, content: reason)
