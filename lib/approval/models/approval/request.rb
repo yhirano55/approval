@@ -3,8 +3,8 @@ module Approval
     self.table_name_prefix = "approval_".freeze
 
     class << self
-      def define_user_association(user_class_name)
-        with_options class_name: user_class_name.to_s do
+      def define_user_association(klass)
+        with_options class_name: klass.to_s do
           belongs_to :request_user
           belongs_to :respond_user, optional: true
         end
@@ -22,7 +22,6 @@ module Approval
 
     with_options presence: true do
       validates :state
-      validates :request_user
       validates :respond_user, unless: :pending?
       validates :comments
       validates :items

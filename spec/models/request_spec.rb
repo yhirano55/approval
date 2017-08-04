@@ -12,7 +12,6 @@ RSpec.describe Approval::Request, type: :model do
 
   describe "Validation" do
     it { is_expected.to validate_presence_of(:state) }
-    it { is_expected.to validate_presence_of(:request_user) }
     it { is_expected.to validate_presence_of(:comments) }
     it { is_expected.to validate_presence_of(:items) }
 

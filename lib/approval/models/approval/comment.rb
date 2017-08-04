@@ -3,8 +3,8 @@ module Approval
     self.table_name_prefix = "approval_".freeze
 
     class << self
-      def define_user_association(user_class_name)
-        belongs_to :user, class_name: user_class_name.to_s
+      def define_user_association(klass)
+        belongs_to :user, class_name: klass.to_s
       end
     end
 
