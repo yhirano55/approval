@@ -2,8 +2,8 @@ require "spec_helper"
 
 RSpec.describe Approval::Request, type: :model do
   describe "Association" do
-    it { is_expected.to belong_to(:request_user).class_name(Approval.config.user_class_name) }
-    it { is_expected.to belong_to(:respond_user).class_name(Approval.config.user_class_name) }
+    it { is_expected.to belong_to(:request_user).class_name("User") }
+    it { is_expected.to belong_to(:respond_user).class_name("User") }
     it { is_expected.to have_many(:comments).class_name("::Approval::Comment").dependent(:destroy) }
     it { is_expected.to have_many(:items).class_name("::Approval::Item").dependent(:destroy) }
   end
