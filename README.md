@@ -134,9 +134,6 @@ admin.approval_comments.create(request: request, content: "Hello")
 # config/initializers/approval.rb
 
 Approval.configure do |config|
-  # Your user model name (e.g. User, AdminUser, Member, default: User)
-  config.user_class_name = "User"
-
   # Maximum characters of comment for reason (default: 2000)
   config.comment_maximum = 2000
 
