@@ -30,7 +30,7 @@
 4. Add `acts_as_approval_resource` to the models you want use approval flow:
 
   ```ruby
-  class Post < ApplicationRecord
+  class Book < ApplicationRecord
     acts_as_approval_resource
   end
   ```
@@ -64,7 +64,7 @@ record  = Book.find(1).tap {|record| record.name = "new book title" }
 request = staff.request_for_update(record, reason: "something")
 request.save
 
-records = Book.where(id: 1, 2, 3).map {|record| record.price *= 0.5 }
+records = Book.where(id: [1, 2, 3]).each {|record| record.price *= 0.5 }
 request = staff.request_for_update(records, reason: "something")
 request.save!
 ```
@@ -78,7 +78,7 @@ record  = Book.find(1)
 request = staff.request_for_destroy(record, reason: "something")
 request.save
 
-records = Book.where(id: 1, 2, 3)
+records = Book.where(id: [1, 2, 3])
 request = staff.request_for_destroy(records, reason: "something")
 request.save!
 ```
