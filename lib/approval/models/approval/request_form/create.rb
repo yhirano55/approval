@@ -11,7 +11,7 @@ module Approval
               request.items.new(
                 event: "create",
                 resource_type: record.class.to_s,
-                params: record.params_for_approval,
+                params: record.create_params_for_approval,
               )
             end
             yield(request)

@@ -15,6 +15,7 @@ module Approval
       validates :resource_id, unless: :create_event?
       validates :resource_type
       validates :event, inclusion: { in: EVENTS }
+      validates :params, if: :update_event?
     end
 
     validate :ensure_resource_be_valid

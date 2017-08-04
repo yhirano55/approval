@@ -12,11 +12,19 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe "#params_for_approval" do
+  describe "#create_params_for_approval" do
     let(:book) { build :book }
     let(:result) { book.attributes.except("id", "created_at", "updated_at") }
 
-    subject { book.params_for_approval }
+    subject { book.create_params_for_approval }
+    it { is_expected.to eq result }
+  end
+
+  describe "#update_params_for_approval" do
+    let(:book) { create(:book).tap { |book| book.name = "changed name" } }
+    let(:result) { { "name" => "changed name" } }
+
+    subject { book.update_params_for_approval }
     it { is_expected.to eq result }
   end
 end

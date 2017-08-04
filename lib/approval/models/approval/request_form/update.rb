@@ -12,7 +12,7 @@ module Approval
                 event: "update",
                 resource_type: record.class.to_s,
                 resource_id: record.id,
-                params: record.params_for_approval,
+                params: record.update_params_for_approval,
               )
             end
             yield(request)
