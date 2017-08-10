@@ -2,9 +2,13 @@ module Approval
   class Request < ::ActiveRecord::Base
     self.table_name_prefix = "approval_".freeze
 
-    with_options class_name: Approval.config.user_class_name do
-      belongs_to :request_user
-      belongs_to :respond_user, optional: true
+    class << self
+      def define_user_association(klass)
+        with_options class_name: klass.to_s do
+          belongs_to :request_user
+          belongs_to :respond_user, optional: true
+        end
+      end
     end
 
     with_options dependent: :destroy, inverse_of: :request do
@@ -18,7 +22,6 @@ module Approval
 
     with_options presence: true do
       validates :state
-      validates :request_user
       validates :respond_user, unless: :pending?
       validates :comments
       validates :items

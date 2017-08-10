@@ -44,7 +44,7 @@ You send request, but resources aren't created/updated/destroied.
 #### :pray: Create
 
 ```ruby
-staff   = User.find_or_create_by(email: "staff@example.com")
+staff = User.find_or_create_by(email: "staff@example.com")
 
 record  = Book.new(name: "Ruby Way", price: 2980)
 request = staff.request_for_create(record, reason: "something")
@@ -58,7 +58,7 @@ request.save!
 #### :pray: Update
 
 ```ruby
-staff   = User.find_or_create_by(email: "staff@example.com")
+staff = User.find_or_create_by(email: "staff@example.com")
 
 record  = Book.find(1).tap {|record| record.name = "new book title" }
 request = staff.request_for_update(record, reason: "something")
@@ -72,7 +72,7 @@ request.save!
 #### :pray: Destroy
 
 ```ruby
-staff   = User.find_or_create_by(email: "staff@example.com")
+staff = User.find_or_create_by(email: "staff@example.com")
 
 record  = Book.find(1)
 request = staff.request_for_destroy(record, reason: "something")
@@ -90,7 +90,7 @@ request.save!
 Then resources are created/updated/destroied, if respond user have approved the request.
 
 ```ruby
-admin   = User.find_or_create_by(email: "admin@example.com")
+admin = User.find_or_create_by(email: "admin@example.com")
 
 request = Approval::Request.first
 respond = admin.approve_request(request, reason: "something")
@@ -102,7 +102,7 @@ respond.save! # Create/Update/Destroy resources
 Then resources are not created/updated/destroied, if respond user have rejected the request.
 
 ```ruby
-admin   = User.find_or_create_by(email: "admin@example.com")
+admin = User.find_or_create_by(email: "admin@example.com")
 
 request = Approval::Request.first
 respond = admin.reject_request(request, reason: "something")
@@ -119,15 +119,21 @@ respond = staff.cancel_request(request, reason: "something")
 respond.save!
 ```
 
+### Comment
+
+```ruby
+admin = User.find_or_create_by(email: "admin@example.com")
+
+request = Approval::Request.first
+admin.approval_comments.create(request: request, content: "Hello")
+```
+
 ### Configuration
 
 ```ruby
 # config/initializers/approval.rb
 
 Approval.configure do |config|
-  # Your user model name (e.g. User, AdminUser, Member, default: User)
-  config.user_class_name = "User"
-
   # Maximum characters of comment for reason (default: 2000)
   config.comment_maximum = 2000
 

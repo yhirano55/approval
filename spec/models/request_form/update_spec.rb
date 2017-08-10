@@ -9,13 +9,23 @@ RSpec.describe Approval::RequestForm::Update do
     subject { form.save }
 
     context "when records is single" do
-      let(:records) { create :book }
+      let(:records) do
+        book = create(:book)
+        book.name = "changed name"
+        book
+      end
+
       it { expect { subject }.not_to raise_error }
       it { expect { subject }.to change { Approval::Item.count }.from(0).to(1) }
     end
 
     context "when records is multiple" do
-      let(:records) { create_list :book, 3 }
+      let(:records) do
+        books = create_list(:book, 3)
+        books.map.with_index { |book, i| book.name = "changed name #{i}" }
+        books
+      end
+
       it { expect { subject }.not_to raise_error }
       it { expect { subject }.to change { Approval::Item.count }.from(0).to(3) }
     end

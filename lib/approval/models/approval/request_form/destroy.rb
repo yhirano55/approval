@@ -4,7 +4,7 @@ module Approval
       private
 
         def prepare
-          ::ActiveRecord::Base.transaction do
+          ::Approval::Request.transaction do
             request = user.approval_requests.new
             request.comments.new(user: user, content: reason)
             Array(records).each do |record|
