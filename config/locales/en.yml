@@ -2,3 +2,20 @@ en:
   errors:
     messages:
       already_performed: "This request has already performed."
+      cannot_respond_to_own_request: "cannot respond to own request."
+
+  attributes:
+    reason: "Reason"
+
+  activerecord:
+    model:
+      approval/request: "Request"
+    attributes:
+      approval/request:
+        request_user: "Requested user"
+        respond_user: "Responded user"
+        state: "State"
+        requested_at: "Requested at"
+        cancelled_at: "Cancelled at"
+        approved_at: "Approved at"
+        rejected_at: "Rejected at"
