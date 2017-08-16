@@ -35,7 +35,7 @@ module Approval
 
         def ensure_user_cannot_respond_to_my_request
           return if Approval.config.permit_to_respond_to_own_request?
-          errors.add(:user, :invalid) if user == request.request_user
+          errors.add(:user, :cannot_respond_to_own_request) if user == request.request_user
         end
     end
   end
