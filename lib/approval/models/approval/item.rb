@@ -50,7 +50,7 @@ module Approval
       def ensure_resource_be_valid
         return if resource_model.nil? || destroy_event?
         record = if resource_id.present?
-                   resource_model.find(resource_id).tap {|m| m.assign_attributes(params) }
+                   resource_model.find(resource_id).tap { |m| m.assign_attributes(params) }
                  else
                    resource_model.new(params || {})
                  end

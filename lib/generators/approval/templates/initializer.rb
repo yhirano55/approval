@@ -1,4 +1,7 @@
 Approval.configure do |config|
+  # User Class Name (e.g: User, AdminUser, Member)
+  config.user_class_name = "User"
+
   # Maximum characters of comment for reason (default: 2000)
   config.comment_maximum = 2000
 
