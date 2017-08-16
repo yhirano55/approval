@@ -8,7 +8,8 @@ module Approval
   end
 
   def self.init!
-    Approval.config.user_class_name.constantize.include ::Approval::Mixins::User
+    user_model = Approval.config.user_class_name.safe_constantize
+    user_model.include ::Approval::Mixins::User if user_model
     [Approval::Request, Approval::Comment].each(&:define_user_association)
   end
 end
