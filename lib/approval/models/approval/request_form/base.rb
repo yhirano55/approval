@@ -27,6 +27,14 @@ module Approval
         prepare(&:save!)
       end
 
+      def request
+        @request ||= user.approval_requests.new
+      end
+
+      def error_full_messages
+        [errors, request.errors].flat_map(&:full_messages)
+      end
+
       private
 
         def prepare
