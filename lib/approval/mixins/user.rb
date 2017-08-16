@@ -6,9 +6,6 @@ module Approval
       included do
         has_many :approval_requests, class_name: :"Approval::Request", foreign_key: :request_user_id
         has_many :approval_comments, class_name: :"Approval::Comment", foreign_key: :user_id
-
-        Approval::Request.define_user_association(self)
-        Approval::Comment.define_user_association(self)
       end
 
       def request_for_create(records, reason:)

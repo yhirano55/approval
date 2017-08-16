@@ -6,6 +6,11 @@ module Approval
   def self.configure
     yield config
   end
+
+  def self.init!
+    Approval.config.user_class_name.constantize.include ::Approval::Mixins::User
+    [Approval::Request, Approval::Comment].each(&:define_user_association)
+  end
 end
 
 require "approval/config"
