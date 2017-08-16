@@ -49,11 +49,16 @@ module Approval
 
       def ensure_resource_be_valid
         return if resource_model.nil? || destroy_event?
-        record = resource_model.new(params || {})
+        record = if resource_id.present?
+                   resource_model.find(resource_id).tap {|m| m.assign_attributes(params) }
+                 else
+                   resource_model.new(params || {})
+                 end
 
         unless record.valid?
+          errors.add(:base, :invalid)
           record.errors.full_messages.each do |message|
-            errors.add(:base, message)
+            request.errors.add(:base, message)
           end
         end
       end
