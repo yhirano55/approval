@@ -5,12 +5,25 @@ en:
       cannot_respond_to_own_request: "cannot respond to own request."
 
   attributes:
+    id: "ID"
     reason: "Reason"
+    created_at: "Created at"
+    updated_at: "Updated at"
 
   activerecord:
-    model:
-      approval/request: "Request"
+    models:
+      approval/comment: "Approval Comment"
+      approval/item: "Approval Item"
+      approval/request: "Approval Request"
     attributes:
+      approval/comment:
+        user: "User"
+        content: "Content"
+      approval/item:
+        resource_type: "Resource type"
+        resource_id: "Resource ID"
+        event: "Event"
+        params: "Parameters"
       approval/request:
         request_user: "Requested user"
         respond_user: "Responded user"
