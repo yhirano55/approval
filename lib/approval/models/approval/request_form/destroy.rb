@@ -5,7 +5,7 @@ module Approval
 
         def prepare
           ::Approval::Request.transaction do
-            request.comments.new(user: user, content: reason)
+            request.comments.new(user_id: user.id, content: reason)
             Array(records).each do |record|
               request.items.new(
                 event: "destroy",
