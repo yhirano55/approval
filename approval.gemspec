@@ -15,7 +15,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "bundler", "~> 1.15"
 
-  s.files         = Dir["lib/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
-  s.test_files    = Dir["spec/**/*"]
-  s.require_paths = ["lib"]
+  s.files         = Dir["lib/**/*", "config/**/*", "MIT-LICENSE", "README.md"]
+  s.require_paths = "lib"
 end
