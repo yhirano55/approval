@@ -5,12 +5,25 @@ ja:
       cannot_respond_to_own_request: "は自身の申請のため対応できません"
 
   attributes:
+    id: ID
     reason: 理由
+    created_at: 作成日時
+    updated_at: 更新日時
 
   activerecord:
-    model:
+    models:
+      approval/comment: コメント
+      approval/item: 対象リソース
       approval/request: 申請
     attributes:
+      approval/comment:
+        user: ユーザー
+        content: 内容
+      approval/item:
+        resource_type: リソース種別
+        resource_id: リソースID
+        event: イベント
+        params: パラメータ
       approval/request:
         request_user: 申請者
         respond_user: 対応者
