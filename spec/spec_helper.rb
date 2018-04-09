@@ -2,14 +2,15 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH << File.expand_path("support", __dir__)
 
 ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
-require "bundler/setup"
 
-ENV["RAILS_ENV"] ||= "test"
+require "bundler"
+Bundler.setup
+
+ENV["RAILS_ENV"] = "test"
 
 require "rails"
-
 ENV["RAILS"] = Rails.version
-ENV["RAILS_ROOT"] = File.expand_path("../rails/rails-#{ENV["RAILS"]}", __FILE__)
+ENV["RAILS_ROOT"] = File.expand_path("../tmp/rails-#{ENV["RAILS"]}", __dir__)
 
 # Create the test app if it doesn't exists
 system "rake setup" unless File.exist?(ENV["RAILS_ROOT"])
@@ -21,7 +22,7 @@ require ENV["RAILS_ROOT"] + "/config/environment.rb"
 require "rspec/rails"
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.expect_with :rspec do |expectations|
     expectations.syntax = [:should, :expect]
@@ -35,13 +36,13 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 end
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
-    sequence(:name) { |n| "name#{n}" }
+    sequence(:name) {|n| "name#{n}" }
   end
 
   factory :book do
-    sequence(:name) { |n| "name#{n}" }
+    sequence(:name) {|n| "name#{n}" }
   end
 
   factory :request, class: "Approval::Request" do
@@ -70,11 +71,24 @@ FactoryGirl.define do
       requested_at { Time.current }
       rejected_at { Time.current }
     end
+
+    trait :with_comments do
+      after(:build) do |request|
+        request.comments = [build(:comment)]
+      end
+    end
+
+    trait :with_items do
+      after(:build) do |request|
+        request.items = [build(:item, :create)]
+      end
+    end
   end
 
   factory :comment, class: "Approval::Comment" do
-    sequence(:content) { |n| "content#{n}" }
+    sequence(:content) {|n| "content#{n}" }
     request_id 1
+    association :user
   end
 
   factory :item, class: "Approval::Item" do

@@ -1,10 +1,7 @@
 module Approval
   class Config
-    attr_accessor(
-      :user_class_name,
-      :comment_maximum,
-      :permit_to_respond_to_own_request,
-    )
+    attr_accessor :user_class_name, :comment_maximum,
+                  :permit_to_respond_to_own_request
 
     def initialize
       @user_class_name = "User"

@@ -7,10 +7,12 @@ inherit_gem:
     # - "config/rspec.yml"
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.2
   # uncomment if use rails cops
   # TargetRailsVersion: 5.1
   Exclude:
     - "vendor/**/*"
     - "gemfiles/vendor/**/*" # Apprisal
     - "spec/rails/**/*"
+    - "db/**/*"
+    - "tmp/**/*"

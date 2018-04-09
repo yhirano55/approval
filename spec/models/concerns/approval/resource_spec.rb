@@ -21,7 +21,7 @@ RSpec.describe Book, type: :model do
   end
 
   describe "#update_params_for_approval" do
-    let(:book) { create(:book).tap { |book| book.name = "changed name" } }
+    let(:book) { create(:book).tap {|book| book.name = "changed name" } }
     let(:result) { { "name" => "changed name" } }
 
     subject { book.update_params_for_approval }

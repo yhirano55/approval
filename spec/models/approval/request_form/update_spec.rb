@@ -22,7 +22,7 @@ RSpec.describe Approval::RequestForm::Update do
     context "when records is multiple" do
       let(:records) do
         books = create_list(:book, 3)
-        books.map.with_index { |book, i| book.name = "changed name #{i}" }
+        books.map.with_index {|book, i| book.name = "changed name #{i}" }
         books
       end
 

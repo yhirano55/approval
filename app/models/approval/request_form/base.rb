@@ -1,41 +1,46 @@
 module Approval
-  module RespondForm
+  module RequestForm
     class Base
       include ::ActiveModel::Model
 
-      attr_accessor :user, :reason, :request
+      attr_accessor :user, :reason, :records
 
-      def initialize(user:, reason:, request:)
+      def initialize(user:, reason:, records:)
         @user    = user
         @reason  = reason
-        @request = request
+        @records = records
       end
 
       with_options presence: true do
         validates :user
         validates :reason, length: { maximum: Approval.config.comment_maximum }
-        validates :request
+        validates :records
       end
 
       def save
         return false unless valid?
+
         prepare(&:save)
       end
 
       def save!
         raise ::ActiveRecord::RecordInvalid unless valid?
+
         prepare(&:save!)
+      end
+
+      def request
+        @request ||= user.approval_requests.new
+      end
+
+      def error_full_messages
+        [errors, request.errors].flat_map(&:full_messages)
       end
 
       private
 
         def prepare
           raise NotImplementedError, "you must implement #{self.class}##{__method__}"
-        end
-
-        def ensure_user_cannot_respond_to_my_request
-          return if Approval.config.permit_to_respond_to_own_request?
-          errors.add(:user, :cannot_respond_to_own_request) if user.try(:id) == request.request_user_id
         end
     end
   end
