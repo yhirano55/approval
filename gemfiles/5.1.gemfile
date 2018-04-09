@@ -3,7 +3,6 @@
 source "https://rubygems.org"
 
 gem "appraisal"
-gem "pry"
 gem "rails", "~> 5.1.0"
 
 group :development, :test do
@@ -15,7 +14,7 @@ group :development do
 end
 
 group :test do
-  gem "factory_girl_rails"
+  gem "factory_bot_rails"
   gem "rspec-rails"
   gem "shoulda-matchers"
 end

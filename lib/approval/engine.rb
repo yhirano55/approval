@@ -1,11 +1,10 @@
+require "rails"
+
 module Approval
   class Engine < ::Rails::Engine
-    paths["app/models"] << "lib/approval/models"
-
-    initializer "approval" do
+    initializer "approval.mixins" do
       ActiveSupport.on_load :active_record do
-        require "approval/mixins"
-        ActiveRecord::Base.include ::Approval::Mixins
+        extend ::Approval::Mixins
       end
     end
 

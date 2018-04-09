@@ -12,8 +12,8 @@ RSpec.describe Approval::Item, type: :model do
     it { is_expected.to validate_inclusion_of(:event).in_array(described_class::EVENTS) }
 
     context "when event is create" do
-      subject { build :item, :update }
-      it { is_expected.to validate_presence_of(:event) }
+      subject { build :item, :create }
+      it { is_expected.not_to validate_presence_of(:resource_id) }
     end
   end
 

@@ -1,12 +1,15 @@
 language: ruby
-
-sudo: false
-
-script: "bundle exec rake"
-
-rvm:
-  - 2.3.5
-  - 2.4.2
-
+before_install:
+  - gem update --system
+  - gem install bundler
 gemfile:
-  - gemfiles/rails51.gemfile
+  - gemfiles/5.0.gemfile
+  - gemfiles/5.1.gemfile
+  - gemfiles/5.2.gemfile
+rvm:
+  - 2.2.10
+  - 2.3.7
+  - 2.4.4
+  - 2.5.1
+script:
+  - bundle exec rspec
