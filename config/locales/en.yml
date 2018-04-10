@@ -3,6 +3,8 @@ en:
     messages:
       already_performed: "This request has already performed."
       cannot_respond_to_own_request: "cannot respond to own request."
+      cannot_execute_others_request: "cannot execute others request."
+      is_not_approved: "is not approved."
 
   attributes:
     id: "ID"
