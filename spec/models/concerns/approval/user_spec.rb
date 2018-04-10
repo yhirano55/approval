@@ -36,13 +36,33 @@ RSpec.describe User, type: :model do
     end
 
     describe "#approve_request" do
-      subject { user.approve_request(request, reason: reason) }
-      it { is_expected.to be_a(Approval::RespondForm::Approve) }
+      subject { user.approve_request(request, reason: reason, execute: execute) }
+
+      context "when execute is true by default" do
+        let(:execute) { true }
+
+        it { is_expected.to be_a(Approval::RespondForm::ApproveWithExecute) }
+      end
+
+      context "when execute is false" do
+        let(:execute) { false }
+
+        it { is_expected.to be_a(Approval::RespondForm::Approve) }
+      end
     end
 
     describe "#reject_request" do
       subject { user.reject_request(request, reason: reason) }
       it { is_expected.to be_a(Approval::RespondForm::Reject) }
     end
+  end
+
+  describe "ExecuteForm" do
+    let(:user) { build :user }
+    let(:request) { build :request }
+    let(:reason) { "reason" }
+
+    subject { user.execute_request(request, reason: reason) }
+    it { is_expected.to be_a(Approval::ExecuteForm) }
   end
 end
