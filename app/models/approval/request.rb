@@ -1,6 +1,5 @@
 module Approval
   class Request < ApplicationRecord
-    class NotApprovedError < StandardError; end
     self.table_name = :approval_requests
 
     def self.define_user_association
@@ -30,8 +29,6 @@ module Approval
     end
 
     def execute
-      raise NotApprovedError unless approved?
-
       self.state = :executed
       self.executed_at = Time.current
       items.each(&:apply)
@@ -42,7 +39,9 @@ module Approval
       def ensure_state_was_pending
         return unless persisted?
 
-        errors.add(:base, :already_performed) if state_was != "pending"
+        if %w[pending approved].exclude?(state_was)
+          errors.add(:base, :already_performed)
+        end
       end
   end
 end
