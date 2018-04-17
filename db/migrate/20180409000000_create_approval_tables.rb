@@ -8,6 +8,7 @@ class CreateApprovalTables < ActiveRecord::Migration[5.0]
       t.datetime :cancelled_at
       t.datetime :approved_at
       t.datetime :rejected_at
+      t.datetime :executed_at
 
       t.timestamps
 

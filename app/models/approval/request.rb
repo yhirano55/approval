@@ -10,7 +10,7 @@ module Approval
     has_many :comments, class_name: :"Approval::Comment", inverse_of: :request, dependent: :destroy
     has_many :items,    class_name: :"Approval::Item",    inverse_of: :request, dependent: :destroy
 
-    enum state: { pending: 0, cancelled: 1, approved: 2, rejected: 3 }
+    enum state: { pending: 0, cancelled: 1, approved: 2, rejected: 3, executed: 4 }
 
     scope :recently, -> { order(id: :desc) }
 
@@ -28,12 +28,20 @@ module Approval
       self.requested_at = Time.current
     end
 
+    def execute
+      self.state = :executed
+      self.executed_at = Time.current
+      items.each(&:apply)
+    end
+
     private
 
       def ensure_state_was_pending
         return unless persisted?
 
-        errors.add(:base, :already_performed) if state_was != "pending"
+        if %w[pending approved].exclude?(state_was)
+          errors.add(:base, :already_performed)
+        end
       end
   end
 end

@@ -36,4 +36,26 @@ RSpec.describe Approval::Request, type: :model do
       end
     end
   end
+
+  describe "#execute" do
+    let(:request) { build :request, state }
+    let(:comment) { build :comment, request: request, user: request.request_user }
+    let(:item) { build :item, :create, request: request }
+
+    before do
+      request.comments << comment
+      request.items << item
+      request.save!
+    end
+
+    subject { request.execute }
+
+    context "when state is approved" do
+      let(:state) { :approved }
+
+      it { expect { subject }.not_to raise_error }
+      it { expect { subject }.to change { request.state }.from("approved").to("executed") }
+      it { expect { subject }.to change { Book.count }.from(0).to(1) }
+    end
+  end
 end

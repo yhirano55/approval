@@ -3,6 +3,8 @@ ja:
     messages:
       already_performed: "申請は既に実行されています"
       cannot_respond_to_own_request: "は自身の申請のため対応できません"
+      cannot_execute_others_request: "は自身の申請ではないため実行できません"
+      is_not_approved: "は承認されていません"
 
   attributes:
     id: ID

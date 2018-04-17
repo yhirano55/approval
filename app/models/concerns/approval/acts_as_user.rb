@@ -23,12 +23,20 @@ module Approval
       Approval::RespondForm::Cancel.new(user: self, reason: reason, request: request)
     end
 
-    def approve_request(request, reason:)
-      Approval::RespondForm::Approve.new(user: self, reason: reason, request: request)
+    def approve_request(request, reason:, execute: true)
+      if execute
+        Approval::RespondForm::ApproveWithExecute.new(user: self, reason: reason, request: request)
+      else
+        Approval::RespondForm::Approve.new(user: self, reason: reason, request: request)
+      end
     end
 
     def reject_request(request, reason:)
       Approval::RespondForm::Reject.new(user: self, reason: reason, request: request)
+    end
+
+    def execute_request(request, reason: nil)
+      Approval::ExecuteForm.new(user: self, reason: reason, request: request)
     end
   end
 end
