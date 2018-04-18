@@ -23,6 +23,11 @@ RSpec.describe User, type: :model do
       subject { user.request_for_destroy(records, reason: reason) }
       it { is_expected.to be_a(Approval::RequestForm::Destroy) }
     end
+
+    describe "#request_for_perform" do
+      subject { user.request_for_perform(records, reason: reason) }
+      it { is_expected.to be_a(Approval::RequestForm::Perform) }
+    end
   end
 
   describe "RespondForm" do
