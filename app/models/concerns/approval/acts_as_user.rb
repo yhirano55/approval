@@ -19,6 +19,10 @@ module Approval
       Approval::RequestForm::Destroy.new(user: self, reason: reason, records: records)
     end
 
+    def request_for_perform(records, reason:)
+      Approval::RequestForm::Perform.new(user: self, reason: reason, records: records)
+    end
+
     def cancel_request(request, reason:)
       Approval::RespondForm::Cancel.new(user: self, reason: reason, request: request)
     end
