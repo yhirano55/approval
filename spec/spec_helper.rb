@@ -120,6 +120,12 @@ FactoryBot.define do
       event { "destroy" }
       resource_type { "Book" }
     end
+
+    trait :perform do
+      event { "perform" }
+      resource_type { "Book" }
+      params { { name: "performed_name" } }
+    end
   end
 end
 
