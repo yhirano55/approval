@@ -14,6 +14,25 @@ RSpec.describe Approval::Item, type: :model do
     context "when event is create" do
       subject { build :item, :create }
       it { is_expected.not_to validate_presence_of(:resource_id) }
+      it { is_expected.not_to validate_presence_of(:params) }
+    end
+
+    context "when event is update" do
+      subject { build :item, :update }
+      it { is_expected.to validate_presence_of(:resource_id) }
+      it { is_expected.to validate_presence_of(:params) }
+    end
+
+    context "when event is destroy" do
+      subject { build :item, :destroy }
+      it { is_expected.to validate_presence_of(:resource_id) }
+      it { is_expected.not_to validate_presence_of(:params) }
+    end
+
+    context "when event is perform" do
+      subject { build :item, :perform }
+      it { is_expected.not_to validate_presence_of(:resource_id) }
+      it { is_expected.not_to validate_presence_of(:params) }
     end
   end
 
@@ -32,6 +51,11 @@ RSpec.describe Approval::Item, type: :model do
 
     context "when event is destroy" do
       let(:item) { build :item, :destroy }
+      it { is_expected.to eq false }
+    end
+
+    context "when event is perform" do
+      let(:item) { build :item, :perform }
       it { is_expected.to eq false }
     end
   end
@@ -53,6 +77,11 @@ RSpec.describe Approval::Item, type: :model do
       let(:item) { build :item, :destroy }
       it { is_expected.to eq false }
     end
+
+    context "when event is perform" do
+      let(:item) { build :item, :perform }
+      it { is_expected.to eq false }
+    end
   end
 
   describe "#destroy_event?" do
@@ -70,6 +99,35 @@ RSpec.describe Approval::Item, type: :model do
 
     context "when event is destroy" do
       let(:item) { build :item, :destroy }
+      it { is_expected.to eq true }
+    end
+
+    context "when event is perform" do
+      let(:item) { build :item, :perform }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe "#perform_event?" do
+    subject { item.perform_event? }
+
+    context "when event is create" do
+      let(:item) { build :item, :create }
+      it { is_expected.to eq false }
+    end
+
+    context "when event is update" do
+      let(:item) { build :item, :update }
+      it { is_expected.to eq false }
+    end
+
+    context "when event is destroy" do
+      let(:item) { build :item, :destroy }
+      it { is_expected.to eq false }
+    end
+
+    context "when event is perform" do
+      let(:item) { build :item, :perform }
       it { is_expected.to eq true }
     end
   end
@@ -108,6 +166,15 @@ RSpec.describe Approval::Item, type: :model do
 
       it "destroys book" do
         expect { subject }.to change { Book.count }.by(-1)
+      end
+    end
+
+    context "when event is perform" do
+      let(:event) { :perform }
+
+      it "performs from Book" do
+        expect(Book).to receive(:perform).once
+        subject
       end
     end
   end
