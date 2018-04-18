@@ -35,6 +35,16 @@
   end
   ```
 
+  Or if you want to use PORO:
+
+  ```ruby
+  class SomeProcess
+    def self.perform
+      # something
+    end
+  end
+  ```
+
 ## Approval Flow
 
 ### Make request
@@ -81,6 +91,16 @@ request.save
 records = Book.where(id: [1, 2, 3])
 request = staff.request_for_destroy(records, reason: "something")
 request.save!
+```
+
+#### :pray: Perform
+
+```ruby
+staff = User.find_or_create_by(email: "staff@example.com")
+
+record  = MyProcess.new(recipient: "somebody@example.com")
+request = staff.request_for_perform(record, reason: "something")
+request.save
 ```
 
 ### Respond
