@@ -34,3 +34,4 @@ ja:
         cancelled_at: 取消日時
         approved_at: 承認日時
         rejected_at: 却下日時
+        executed_at: 実行日時
