@@ -34,3 +34,4 @@ en:
         cancelled_at: "Cancelled at"
         approved_at: "Approved at"
         rejected_at: "Rejected at"
+        executed_at: "Executed at"
