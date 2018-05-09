@@ -2,6 +2,7 @@ module Approval
   module RespondForm
     class Base
       include ::ActiveModel::Model
+      include ::Approval::FormNotifiable
 
       attr_accessor :user, :reason, :request
 

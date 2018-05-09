@@ -4,9 +4,8 @@ module Approval
       private
 
         def prepare
-          ActiveSupport::Notifications.instrument("request.approval", user: user) do |payload|
+          instrument "request" do |payload|
             ::Approval::Request.transaction do
-              payload[:request] = request
               payload[:comment] = request.comments.new(user_id: user.id, content: reason)
               Array(records).each do |record|
                 request.items.new(
