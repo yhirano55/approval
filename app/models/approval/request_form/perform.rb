@@ -4,16 +4,18 @@ module Approval
       private
 
         def prepare
-          ::Approval::Request.transaction do
-            request.comments.new(user_id: user.id, content: reason)
-            Array(records).each do |record|
-              request.items.new(
-                event: "perform",
-                resource_type: record.class.to_s,
-                params: extract_params_from(record),
-              )
+          instrument "request" do |payload|
+            ::Approval::Request.transaction do
+              payload[:comment] = request.comments.new(user_id: user.id, content: reason)
+              Array(records).each do |record|
+                request.items.new(
+                  event: "perform",
+                  resource_type: record.class.to_s,
+                  params: extract_params_from(record),
+                )
+              end
+              yield(request)
             end
-            yield(request)
           end
         end
 

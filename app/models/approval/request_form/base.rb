@@ -2,6 +2,7 @@ module Approval
   module RequestForm
     class Base
       include ::ActiveModel::Model
+      include ::Approval::FormNotifiable
 
       attr_accessor :user, :reason, :records
 

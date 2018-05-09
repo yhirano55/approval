@@ -1,6 +1,7 @@
 module Approval
   class ExecuteForm
     include ::ActiveModel::Model
+    include ::Approval::FormNotifiable
 
     attr_accessor :user, :reason, :request
 
@@ -32,11 +33,13 @@ module Approval
     private
 
       def execute
-        ::Approval::Request.transaction do
-          request.lock!
-          request.comments.new(user_id: user.id, content: reason) if reason
-          request.execute
-          yield(request)
+        instrument "execute" do |payload|
+          ::Approval::Request.transaction do
+            request.lock!
+            payload[:comment] = request.comments.new(user_id: user.id, content: reason) if reason
+            request.execute
+            yield(request)
+          end
         end
       end
 
