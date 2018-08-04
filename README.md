@@ -49,7 +49,7 @@
 
 ### Make request
 
-You send request, but resources aren't created/updated/destroied.
+You send request, but resources aren't created/updated/destroyed.
 
 #### :pray: Create
 
@@ -107,7 +107,7 @@ request.save
 
 #### :ok_woman: Approve
 
-Then resources are created/updated/destroied, if respond user have approved the request.
+Then resources are created/updated/destroyed, if respond user have approved the request.
 
 ```ruby
 admin = User.find_or_create_by(email: "admin@example.com")
@@ -119,7 +119,7 @@ respond.save! # Create/Update/Destroy resources
 
 ##### :no_good: Reject
 
-Then resources are not created/updated/destroied, if respond user have rejected the request.
+Then resources are not created/updated/destroyed, if respond user have rejected the request.
 
 ```ruby
 admin = User.find_or_create_by(email: "admin@example.com")
