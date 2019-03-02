@@ -1,0 +1,37 @@
+id:
+  errors:
+    messages:
+      already_performed: "Permintaan ini sudah dilakukan sebelumnya."
+      cannot_respond_to_own_request: "Tidak dapat merespon terhadap permintaan sendiri."
+      cannot_execute_others_request: "Tidak dapat merespon terhadap permintaan lainnya."
+      is_not_approved: "tidak di setujui"
+
+  attributes:
+    id: "ID"
+    reason: "Alasan"
+    created_at: "Dibuat pada"
+    updated_at: "Diperbaharui pada"
+
+  activerecord:
+    models:
+      approval/comment: "Komentar Persetujuan"
+      approval/item: "Item Persetujuan"
+      approval/request: "Permintaan Persetujuan"
+    attributes:
+      approval/comment:
+        user: "Pengguna"
+        content: "Konten"
+      approval/item:
+        resource_type: "Tipe sumber"
+        resource_id: "ID sumber"
+        event: "Event"
+        params: "Parameter"
+      approval/request:
+        request_user: "Pengguna yang diminta"
+        respond_user: "Pengguna yang direspon"
+        state: "Status"
+        requested_at: "Diminta pada"
+        cancelled_at: "Dibatalkan pada"
+        approved_at: "Disetujui pada"
+        rejected_at: "Ditolak pada"
+        executed_at: "Dieksekusi pada"
