@@ -13,18 +13,33 @@ RSpec.describe Book, type: :model do
   end
 
   describe "#create_params_for_approval" do
-    let(:book) { build :book }
-    let(:result) { book.attributes.except("id", "created_at", "updated_at") }
-
     subject { book.create_params_for_approval }
-    it { is_expected.to eq result }
+
+    context "when attribute is not nil" do
+      let(:book) { build :book }
+      let(:result) { book.attributes.except("id", "created_at", "updated_at") }
+    end
+
+    context "when attribute is nil" do
+      let(:book) { build :book , name: nil }
+      let(:result) { book.attributes.except("id", "name", "created_at", "updated_at") }
+      it { is_expected.to eq result }
+    end
   end
 
   describe "#update_params_for_approval" do
-    let(:book) { create(:book).tap {|book| book.name = "changed name" } }
-    let(:result) { { "name" => "changed name" } }
-
     subject { book.update_params_for_approval }
-    it { is_expected.to eq result }
+
+    context "when attribute is not nil" do
+      let(:book) { create(:book).tap {|book| book.name = "changed name" } }
+      let(:result) { { "name" => "changed name" } }
+      it { is_expected.to eq result }
+    end
+
+    context "when attribute is nil" do
+      let(:book) { create(:book).tap {|book| book.name = nil } }
+      let(:result) { { "name" => nil } }
+      it { is_expected.to eq result }
+    end
   end
 end
