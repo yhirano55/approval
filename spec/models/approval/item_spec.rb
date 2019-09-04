@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe Approval::Item, type: :model do
   describe "Association" do
     it { is_expected.to belong_to(:request).class_name("Approval::Request").inverse_of(:items) }
-    it { is_expected.to belong_to(:resource) }
+    it { is_expected.to belong_to(:resource).optional }
   end
 
   describe "Association" do
