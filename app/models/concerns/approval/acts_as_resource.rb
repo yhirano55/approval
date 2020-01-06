@@ -20,7 +20,7 @@ module Approval
     end
 
     def update_params_for_approval
-      changes.except(*approval_ignore_fields).each_with_object({}) {|(k, v), h| h[k] = v.last }.compact
+      changes.except(*approval_ignore_fields).each_with_object({}) {|(k, v), h| h[k] = v.last }
     end
   end
 end
