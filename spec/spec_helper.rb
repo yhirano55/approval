@@ -87,12 +87,12 @@ FactoryBot.define do
 
   factory :comment, class: "Approval::Comment" do
     sequence(:content) {|n| "content#{n}" }
-    request_id 1
+    request_id { 1 }
     association :user
   end
 
   factory :item, class: "Approval::Item" do
-    request_id 1
+    request_id { 1 }
 
     trait :create do
       event { "create" }
