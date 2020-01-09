@@ -1,0 +1,37 @@
+fr:
+  errors:
+    messages:
+      already_performed: "La demande a déjà été traitée."
+      cannot_respond_to_own_request: "ne peut pas répondre à sa propre demande."
+      cannot_execute_others_request: "ne peut pas éxécuter les demandes des autres utilisateurs."
+      is_not_approved: "n'est pas approuvée."
+
+  attributes:
+    id: "ID"
+    reason: "Raison"
+    created_at: "Crée le"
+    updated_at: "Mis à jour le"
+
+  activerecord:
+    models:
+      approval/comment: "Commentaire"
+      approval/item: "Objet de la demande"
+      approval/request: "Demande"
+    attributes:
+      approval/comment:
+        user: "Utilisateur"
+        content: "Contenu"
+      approval/item:
+        resource_type: "Type de ressource"
+        resource_id: "ID de la ressource"
+        event: "Événement"
+        params: "Paramètres"
+      approval/request:
+        request_user: "Demandeur"
+        respond_user: "Approbateur"
+        state: "État"
+        requested_at: "Demande faite le"
+        cancelled_at: "Annulée le"
+        approved_at: "Acceptée le"
+        rejected_at: "Refusée le"
+        executed_at: "Éxécutée le"
