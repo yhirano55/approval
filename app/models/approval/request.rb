@@ -14,10 +14,8 @@ module Approval
 
     scope :recently, -> { order(id: :desc) }
 
-    validates :state,        presence: true
+    validates :state, :comments, :items, :tenant_id, presence: true
     validates :respond_user, presence: true, unless: :pending?
-    validates :comments,     presence: true
-    validates :items,        presence: true
 
     validates_associated :comments
     validates_associated :items

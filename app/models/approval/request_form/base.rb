@@ -6,15 +6,15 @@ module Approval
 
       attr_accessor :user, :reason, :records
 
-      def initialize(user:, reason:, records:)
+      def initialize(user:, reason:, records:, tenant_id:)
         @user    = user
         @reason  = reason
         @records = records
+        @tenant_id = tenant_id
       end
 
-      validates :user,    presence: true
+      validates :user, :records, :tenant_id,  presence: true
       validates :reason,  presence: true, length: { maximum: Approval.config.comment_maximum }
-      validates :records, presence: true
 
       def save
         return false unless valid?
