@@ -10,7 +10,7 @@ module Approval
         @user    = user
         @reason  = reason
         @records = records
-        @tenant = tenant
+        @tenant  = tenant
       end
 
       validates :user, :records, :tenant,  presence: true
