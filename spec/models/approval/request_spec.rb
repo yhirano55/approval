@@ -45,8 +45,8 @@ RSpec.describe Approval::Request, type: :model do
     let(:item) { build :item, :create, request: request }
 
     before do
-      request.comments << comment
-      request.items << item
+      request.comments = [comment]
+      request.items = [item]
       request.save!
     end
 
