@@ -1,10 +1,16 @@
 require "spec_helper"
 
 RSpec.describe Approval::RequestForm::Destroy do
+  let(:tenant) { Class.new do
+    def self.id
+      1
+    end
+  end }
+
   describe "#save" do
     let(:user) { create :user }
     let(:reason) { "reason" }
-    let(:form) { described_class.new(user: user, reason: reason, records: records, tenant_id: 1) }
+    let(:form) { described_class.new(user: user, reason: reason, records: records, tenant: tenant) }
 
     subject { form.save }
 

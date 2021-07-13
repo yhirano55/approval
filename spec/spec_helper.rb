@@ -45,6 +45,10 @@ FactoryBot.define do
     sequence(:name) {|n| "name#{n}" }
   end
 
+  factory :tenant do
+    sequence(:name) {|n| "name#{n}" }
+  end
+
   factory :request, class: "Approval::Request" do
     association :request_user, factory: :user
 
