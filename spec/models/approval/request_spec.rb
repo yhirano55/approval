@@ -40,12 +40,11 @@ RSpec.describe Approval::Request, type: :model do
   end
 
   describe "#execute" do
-    let(:request) { build :request, state }
+    let(:request) { build :request, state, tenant_id: 1 }
     let(:comment) { build :comment, request: request, user: request.request_user }
     let(:item) { build :item, :create, request: request }
 
     before do
-      request.tenant_id = 1
       request.comments << comment
       request.items << item
       request.save!
@@ -58,7 +57,7 @@ RSpec.describe Approval::Request, type: :model do
 
       it { expect { subject }.not_to raise_error }
       it { expect { subject }.to change { request.state }.from("approved").to("executed") }
-      xit { expect { subject }.to change { Book.count }.from(0).to(1) }
+      it { expect { subject }.to change { Book.count }.from(0).to(1) }
     end
   end
 end
