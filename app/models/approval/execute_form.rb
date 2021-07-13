@@ -11,8 +11,7 @@ module Approval
       @request = request
     end
 
-    validates :user,    presence: true
-    validates :request, presence: true
+    validates :user, :request, presence: true
     validates :reason,  allow_blank: true, length: { maximum: Approval.config.comment_maximum }
 
     validate :ensure_request_is_approved

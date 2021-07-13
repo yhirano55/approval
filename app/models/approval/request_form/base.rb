@@ -4,7 +4,7 @@ module Approval
       include ::ActiveModel::Model
       include ::Approval::FormNotifiable
 
-      attr_accessor :user, :reason, :records
+      attr_accessor :user, :reason, :records, :tenant_id
 
       def initialize(user:, reason:, records:, tenant_id:)
         @user    = user

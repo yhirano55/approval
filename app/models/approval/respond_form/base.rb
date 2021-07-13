@@ -12,9 +12,8 @@ module Approval
         @request = request
       end
 
-      validates :user,    presence: true
+      validates :user, :request, presence: true
       validates :reason,  presence: true, length: { maximum: Approval.config.comment_maximum }
-      validates :request, presence: true
 
       def save
         return false unless valid?

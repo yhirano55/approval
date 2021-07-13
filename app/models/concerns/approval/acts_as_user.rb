@@ -7,19 +7,19 @@ module Approval
       has_many :approval_comments, class_name: :"Approval::Comment", foreign_key: :user_id
     end
 
-    def request_for_create(records, tenant_id, reason:)
+    def request_for_create(records, reason:, tenant_id:)
       Approval::RequestForm::Create.new(user: self, reason: reason, records: records, tenant_id: tenant_id)
     end
 
-    def request_for_update(records, tenant_id, reason:)
+    def request_for_update(records, reason:, tenant_id:)
       Approval::RequestForm::Update.new(user: self, reason: reason, records: records, tenant_id: tenant_id)
     end
 
-    def request_for_destroy(records, tenant_id, reason:)
+    def request_for_destroy(records, reason:, tenant_id:)
       Approval::RequestForm::Destroy.new(user: self, reason: reason, records: records, tenant_id: tenant_id)
     end
 
-    def request_for_perform(records, tenant_id, reason:)
+    def request_for_perform(records, reason:, tenant_id:)
       Approval::RequestForm::Perform.new(user: self, reason: reason, records: records, tenant_id: tenant_id)
     end
 

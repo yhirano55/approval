@@ -4,7 +4,7 @@ RSpec.describe Approval::RequestForm::Perform do
   describe "#save" do
     let(:user) { create :user }
     let(:reason) { "reason" }
-    let(:form) { described_class.new(user: user, reason: reason, records: records) }
+    let(:form) { described_class.new(user: user, reason: reason, records: records, tenant_id: 1) }
 
     subject { form.save }
 
