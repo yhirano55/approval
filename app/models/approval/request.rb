@@ -7,9 +7,7 @@ module Approval
       belongs_to :respond_user, class_name: Approval.config.user_class_name, optional: true
     end
 
-    def self.define_tenant_association
-      belongs_to :tenant, class_name: 'Tenant', dependent: false
-    end
+    belongs_to :tenant, class_name: 'Tenant', dependent: false
 
     has_many :comments, class_name: :"Approval::Comment", inverse_of: :request, dependent: :destroy
     has_many :items,    class_name: :"Approval::Item",    inverse_of: :request, dependent: :destroy
