@@ -34,6 +34,18 @@ module Approval
       items.each(&:apply)
     end
 
+    def approved?
+      approved_at.present?
+    end
+
+    def cancelled?
+      cancelled_at.present?
+    end
+
+    def rejected?
+      rejected_at.present?
+    end
+
     private
 
       def ensure_state_was_pending
