@@ -13,7 +13,8 @@ module Approval
         @tenant  = tenant
       end
 
-      validates :user, :records, :tenant,  presence: true
+      validates :user, :records,  presence: true
+      validates :tenant, presence: true, if: :tenancy?
       validates :reason,  presence: true, length: { maximum: Approval.config.comment_maximum }
 
       def save
@@ -40,6 +41,10 @@ module Approval
 
         def prepare
           raise NotImplementedError, "you must implement #{self.class}##{__method__}"
+        end
+
+        def tenancy?
+          ::Approval.config.tenancy
         end
     end
   end

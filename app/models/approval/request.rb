@@ -7,7 +7,9 @@ module Approval
       belongs_to :respond_user, class_name: Approval.config.user_class_name, optional: true
     end
 
-    belongs_to :tenant, class_name: 'Tenant', dependent: false
+    def self.define_tenant_association
+      belongs_to :tenant, dependent: false
+    end
 
     has_many :comments, class_name: :"Approval::Comment", inverse_of: :request, dependent: :destroy
     has_many :items,    class_name: :"Approval::Item",    inverse_of: :request, dependent: :destroy
@@ -44,6 +46,13 @@ module Approval
 
     def rejected?
       rejected_at.present?
+    end
+
+    def status
+      return 'approved' if approved?
+      return 'cancelled' if cancelled?
+      return 'rejected' if rejected?
+      return 'pending' if pending?
     end
 
     private

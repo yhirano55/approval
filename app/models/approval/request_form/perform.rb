@@ -6,7 +6,7 @@ module Approval
         def prepare
           instrument "request" do |payload|
             ::Approval::Request.transaction do
-              request.tenant_id = tenant.id
+              request.tenant_id = tenant.id if ::Approval.config.tenancy
               payload[:comment] = request.comments.new(user_id: user.id, content: reason)
               Array(records).each do |record|
                 request.items.new(

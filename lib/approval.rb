@@ -9,6 +9,7 @@ module Approval
 
   def self.init!
     user_model = Approval.config.user_class_name.safe_constantize
+    ::Approval::Request.define_tenant_association if Approval.config.tenancy
 
     if user_model
       ::Approval::Request.define_user_association

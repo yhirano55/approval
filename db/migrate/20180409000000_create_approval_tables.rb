@@ -3,7 +3,7 @@ class CreateApprovalTables < ActiveRecord::Migration[5.0]
     create_table :approval_requests do |t|
       t.integer  :request_user_id, null: false
       t.integer  :respond_user_id
-      t.references :tenant,        null: false, foreign_key: true
+      t.references :tenant,        null: true, foreign_key: true
       t.integer  :state,           null: false, limit: 1, default: 0
       t.datetime :requested_at,    null: false
       t.datetime :cancelled_at
