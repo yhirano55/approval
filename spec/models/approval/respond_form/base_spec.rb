@@ -1,11 +1,13 @@
-require "spec_helper"
+# frozen_string_literal: true
+
+require 'spec_helper'
 
 RSpec.describe Approval::RespondForm::Base, type: :model do
   let(:form) { described_class.new(user: user, reason: reason, request: request) }
 
-  describe "Validation" do
+  describe 'Validation' do
     let(:user) { create :user }
-    let(:reason) { "reason" }
+    let(:reason) { 'reason' }
     let(:request) do
       build(:request, :pending).tap do |request|
         request.comments << build(:comment, user: request.request_user)
@@ -22,10 +24,10 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
     it { is_expected.to validate_presence_of(:request) }
   end
 
-  describe "#save" do
-    context "when invalid" do
+  describe '#save' do
+    context 'when invalid' do
       let(:user) { create :user }
-      let(:reason) { "" }
+      let(:reason) { '' }
       let(:request) do
         build(:request, :pending).tap do |request|
           request.comments << build(:comment, user: request.request_user)
@@ -37,9 +39,9 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
       it { expect(form.save).to eq false }
     end
 
-    context "when valid" do
+    context 'when valid' do
       let(:user) { create :user }
-      let(:reason) { "reason" }
+      let(:reason) { 'reason' }
       let(:request) do
         build(:request, :pending).tap do |request|
           request.comments << build(:comment, user: request.request_user)
@@ -52,10 +54,10 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
     end
   end
 
-  describe "#save!" do
-    context "when invalid" do
+  describe '#save!' do
+    context 'when invalid' do
       let(:user) { create :user }
-      let(:reason) { "" }
+      let(:reason) { '' }
       let(:request) do
         build(:request, :pending).tap do |request|
           request.comments << build(:comment, user: request.request_user)
@@ -67,9 +69,9 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
       it { expect { form.save! }.to raise_error(::ActiveRecord::RecordInvalid) }
     end
 
-    context "when valid" do
+    context 'when valid' do
       let(:user) { create :user }
-      let(:reason) { "reason" }
+      let(:reason) { 'reason' }
       let(:request) do
         build(:request, :pending).tap do |request|
           request.comments << build(:comment, user: request.request_user)

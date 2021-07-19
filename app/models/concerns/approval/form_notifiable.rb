@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Approval
   module FormNotifiable
     extend ActiveSupport::Concern

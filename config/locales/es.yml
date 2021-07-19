@@ -1,0 +1,37 @@
+es:
+  errors:
+    messages:
+      already_performed: "Esta solicitud ya fue respondida."
+      cannot_respond_to_own_request: "No puede responder su propia solicitud"
+      cannot_execute_others_request: "No puede responder la solicitud de otros"
+      is_not_approved: "no está aprobada"
+
+  attributes:
+    id: "ID"
+    reason: "Motivo"
+    created_at: "Creado"
+    updated_at: "Actualizado"
+
+  activerecord:
+    models:
+      approval/comment: "Comentario"
+      approval/item: "Artículo"
+      approval/request: "Solicitud de aprobación"
+    attributes:
+      approval/comment:
+        user: "Usuario"
+        content: "Contenido"
+      approval/item:
+        resource_type: "Tipo de recurso"
+        resource_id: "ID de recurso"
+        event: "Evento"
+        params: "Parámetros"
+      approval/request:
+        request_user: "Usuario solicitante"
+        respond_user: "Usuario que responde"
+        state: "Estado"
+        requested_at: "Solicitado"
+        cancelled_at: "Cancelado"
+        approved_at: "Approbado"
+        rejected_at: "Rechazado"
+        executed_at: "Ejecutado"

@@ -1,26 +1,34 @@
+# frozen_string_literal: true
+
 module Approval
   module ActsAsUser
     extend ActiveSupport::Concern
 
     included do
-      has_many :approval_requests, class_name: :"Approval::Request", foreign_key: :request_user_id
-      has_many :approval_comments, class_name: :"Approval::Comment", foreign_key: :user_id
+      has_many :approval_requests, class_name: :'Approval::Request', foreign_key: :request_user_id,
+                                   inverse_of: false, dependent: false
+      has_many :approval_comments, class_name: :'Approval::Comment', foreign_key: :user_id,
+                                   inverse_of: false, dependent: false
     end
 
-    def request_for_create(records, reason:)
-      Approval::RequestForm::Create.new(user: self, reason: reason, records: records)
+    def request_for_create(records, reason:, tenant: nil)
+      Approval::RequestForm::Create.new(user: self, reason: reason, records: records,
+                                        tenant: tenant)
     end
 
-    def request_for_update(records, reason:)
-      Approval::RequestForm::Update.new(user: self, reason: reason, records: records)
+    def request_for_update(records, reason:, tenant: nil)
+      Approval::RequestForm::Update.new(user: self, reason: reason, records: records,
+                                        tenant: tenant)
     end
 
-    def request_for_destroy(records, reason:)
-      Approval::RequestForm::Destroy.new(user: self, reason: reason, records: records)
+    def request_for_destroy(records, reason:, tenant: nil)
+      Approval::RequestForm::Destroy.new(user: self, reason: reason, records: records,
+                                         tenant: tenant)
     end
 
-    def request_for_perform(records, reason:)
-      Approval::RequestForm::Perform.new(user: self, reason: reason, records: records)
+    def request_for_perform(records, reason:, tenant: nil)
+      Approval::RequestForm::Perform.new(user: self, reason: reason, records: records,
+                                         tenant: tenant)
     end
 
     def cancel_request(request, reason:)

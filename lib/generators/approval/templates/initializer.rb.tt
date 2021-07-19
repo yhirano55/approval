@@ -7,4 +7,7 @@ Approval.configure do |config|
 
   # Permit to respond to own request? (default: false)
   config.permit_to_respond_to_own_request = false
+
+  # Enable Tenancy (default: false)
+  config.tenancy = false
 end

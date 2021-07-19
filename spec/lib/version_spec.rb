@@ -1,7 +1,9 @@
-require "spec_helper"
+# frozen_string_literal: true
+
+require 'spec_helper'
 
 RSpec.describe Approval do
-  it "has a version number" do
+  it 'has a version number' do
     expect(Approval::VERSION).not_to be nil
   end
 end

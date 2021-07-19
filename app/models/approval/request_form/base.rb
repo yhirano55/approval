@@ -1,20 +1,23 @@
+# frozen_string_literal: true
+
 module Approval
   module RequestForm
     class Base
       include ::ActiveModel::Model
       include ::Approval::FormNotifiable
 
-      attr_accessor :user, :reason, :records
+      attr_accessor :user, :reason, :records, :tenant
 
-      def initialize(user:, reason:, records:)
+      def initialize(user:, reason:, records:, tenant: nil)
         @user    = user
         @reason  = reason
         @records = records
+        @tenant  = tenant
       end
 
-      validates :user,    presence: true
-      validates :reason,  presence: true, length: { maximum: Approval.config.comment_maximum }
-      validates :records, presence: true
+      validates :user, :records, presence: true
+      validates :tenant, presence: true, if: :tenancy?
+      validates :reason, presence: true, length: { maximum: Approval.config.comment_maximum }
 
       def save
         return false unless valid?
@@ -38,9 +41,13 @@ module Approval
 
       private
 
-        def prepare
-          raise NotImplementedError, "you must implement #{self.class}##{__method__}"
-        end
+      def prepare
+        raise NotImplementedError, "you must implement #{self.class}##{__method__}"
+      end
+
+      def tenancy?
+        ::Approval.config.tenancy
+      end
     end
   end
 end

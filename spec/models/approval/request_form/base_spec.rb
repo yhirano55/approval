@@ -1,11 +1,13 @@
-require "spec_helper"
+# frozen_string_literal: true
+
+require 'spec_helper'
 
 RSpec.describe Approval::RequestForm::Base, type: :model do
   let(:form) { described_class.new(user: user, reason: reason, records: records) }
 
-  describe "Validation" do
+  describe 'Validation' do
     let(:user) { create :user }
-    let(:reason) { "reason" }
+    let(:reason) { 'reason' }
     let(:records) { build :book }
 
     subject { form }
@@ -16,8 +18,8 @@ RSpec.describe Approval::RequestForm::Base, type: :model do
     it { is_expected.to validate_presence_of(:records) }
   end
 
-  describe "#save" do
-    context "when invalid" do
+  describe '#save' do
+    context 'when invalid' do
       let(:user) { nil }
       let(:reason) { nil }
       let(:records) { nil }
@@ -25,17 +27,17 @@ RSpec.describe Approval::RequestForm::Base, type: :model do
       it { expect(form.save).to eq false }
     end
 
-    context "when valid" do
+    context 'when valid' do
       let(:user) { create :user }
-      let(:reason) { "reason" }
+      let(:reason) { 'reason' }
       let(:records) { build :book }
 
       it { expect { form.save }.to raise_error(NotImplementedError) }
     end
   end
 
-  describe "#save!" do
-    context "when invalid" do
+  describe '#save!' do
+    context 'when invalid' do
       let(:user) { nil }
       let(:reason) { nil }
       let(:records) { nil }
@@ -43,9 +45,9 @@ RSpec.describe Approval::RequestForm::Base, type: :model do
       it { expect { form.save! }.to raise_error(::ActiveRecord::RecordInvalid) }
     end
 
-    context "when valid" do
+    context 'when valid' do
       let(:user) { create :user }
-      let(:reason) { "reason" }
+      let(:reason) { 'reason' }
       let(:records) { build :book }
 
       it { expect { form.save! }.to raise_error(NotImplementedError) }
