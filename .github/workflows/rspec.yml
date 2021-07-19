@@ -15,3 +15,4 @@ jobs:
       - run: bundle install
       - run: rake setup
       - name: rspec
+        run: bundle exec rspec
