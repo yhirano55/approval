@@ -5,8 +5,8 @@ module Approval
     self.table_name = :approval_requests
 
     def self.define_user_association
-      belongs_to :request_user, class_name: Approval.config.user_class_name
-      belongs_to :respond_user, class_name: Approval.config.user_class_name, optional: true
+      belongs_to :request_user, class_name: Approval.config.user_class_name.to_s
+      belongs_to :respond_user, class_name: Approval.config.user_class_name.to_s, optional: true
     end
 
     def self.define_tenant_association

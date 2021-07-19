@@ -4,10 +4,12 @@ require 'spec_helper'
 
 RSpec.describe User, type: :model do
   it {
-    is_expected.to have_many(:approval_requests).class_name('Approval::Request').with_foreign_key(:request_user_id)
+    is_expected.to have_many(:approval_requests).class_name('Approval::Request')
+                                                .with_foreign_key(:request_user_id)
   }
   it {
-    is_expected.to have_many(:approval_comments).class_name('Approval::Comment').with_foreign_key(:user_id)
+    is_expected.to have_many(:approval_comments).class_name('Approval::Comment')
+                                                .with_foreign_key(:user_id)
   }
 
   describe 'RequestForm' do

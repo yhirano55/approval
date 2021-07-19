@@ -38,10 +38,10 @@ module Approval
       def ensure_user_cannot_respond_to_my_request
         return if Approval.config.permit_to_respond_to_own_request?
 
-        if user.try(:id) == request.request_user_id
-          errors.add(:user,
-                     :cannot_respond_to_own_request)
-        end
+        return unless user.try(:id) == request.request_user_id
+
+        errors.add(:user,
+                   :cannot_respond_to_own_request)
       end
     end
   end

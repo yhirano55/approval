@@ -13,10 +13,10 @@ module Approval
     user_model = Approval.config.user_class_name.safe_constantize
     ::Approval::Request.define_tenant_association if Approval.config.tenancy
 
-    if user_model
-      ::Approval::Request.define_user_association
-      ::Approval::Comment.define_user_association
-    end
+    return unless user_model
+
+    ::Approval::Request.define_user_association
+    ::Approval::Comment.define_user_association
   end
 end
 

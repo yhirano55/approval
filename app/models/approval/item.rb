@@ -74,11 +74,11 @@ module Approval
                  resource_model.new(params || {})
                end
 
-      unless record.valid?
-        errors.add(:base, :invalid)
-        record.errors.full_messages.each do |message|
-          request.errors.add(:base, message)
-        end
+      return if record.valid?
+
+      errors.add(:base, :invalid)
+      record.errors.full_messages.each do |message|
+        request.errors.add(:base, message)
       end
     end
   end
