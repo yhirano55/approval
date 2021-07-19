@@ -15,7 +15,24 @@ ENV['RAILS'] = Rails.version
 ENV['RAILS_ROOT'] = File.expand_path("../tmp/rails-#{ENV['RAILS']}", __dir__)
 
 # Create the test app if it doesn't exists
-system 'rake setup' unless File.exist?(ENV['RAILS_ROOT'])
+unless File.exist?(ENV['RAILS_ROOT'])
+  require 'rails/version'
+  system <<-COMMAND
+    bundle exec rails new tmp/rails-#{Rails::VERSION::STRING} \
+      -m spec/support/rails_template.rb \
+      --skip-bundle \
+      --skip-spring \
+      --skip-listen \
+      --skip-turbolinks \
+      --skip-bootsnap \
+      --skip-test \
+      --skip-git \
+      --skip-yarn \
+      --skip-puma \
+      --skip-action-mailer \
+      --skip-action-cable
+  COMMAND
+end
 
 # load test app
 require "#{ENV['RAILS_ROOT']}/config/environment.rb"
