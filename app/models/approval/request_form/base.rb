@@ -6,7 +6,7 @@ module Approval
 
       attr_accessor :user, :reason, :records, :tenant
 
-      def initialize(user:, reason:, records:, tenant:)
+      def initialize(user:, reason:, records:, tenant: nil)
         @user    = user
         @reason  = reason
         @records = records

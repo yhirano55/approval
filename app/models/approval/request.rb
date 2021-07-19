@@ -18,8 +18,9 @@ module Approval
 
     scope :recently, -> { order(id: :desc) }
 
-    validates :state, :comments, :items, :tenant, presence: true
+    validates :state, :comments, :items, presence: true
     validates :respond_user, presence: true, unless: :pending?
+    validates :tenant, presence: true, if: :tenancy?
 
     validates_associated :comments
     validates_associated :items
@@ -63,6 +64,10 @@ module Approval
         if %w[pending approved].exclude?(state_was)
           errors.add(:base, :already_performed)
         end
+      end
+
+      def tenancy?
+        ::Approval.config.tenancy
       end
   end
 end

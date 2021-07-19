@@ -14,7 +14,6 @@ RSpec.describe Approval::Request, type: :model do
     it { is_expected.to validate_presence_of(:state) }
     it { is_expected.to validate_presence_of(:comments) }
     it { is_expected.to validate_presence_of(:items) }
-    it { is_expected.to validate_presence_of(:tenant_id) }
 
     context "when request not pending" do
       subject { build :request, :cancelled }
@@ -30,7 +29,6 @@ RSpec.describe Approval::Request, type: :model do
 
       it "set requested_at" do
         expect(request.requested_at).to be_nil
-        request.tenant_id = 1
         request.comments << comment
         request.items << item
         request.save!
@@ -40,7 +38,7 @@ RSpec.describe Approval::Request, type: :model do
   end
 
   describe "#execute" do
-    let(:request) { build :request, state, tenant_id: 1 }
+    let(:request) { build :request, state}
     let(:comment) { build :comment, request: request, user: request.request_user }
     let(:item) { build :item, :create, request: request }
 
