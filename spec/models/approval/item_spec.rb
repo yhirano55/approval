@@ -138,7 +138,6 @@ RSpec.describe Approval::Item, type: :model do
     let(:item) { build :item, event, request: request }
 
     before do
-      request.tenant_id = 1
       request.comments << comment
       request.items << item
       request.save!

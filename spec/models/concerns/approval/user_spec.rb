@@ -8,25 +8,24 @@ RSpec.describe User, type: :model do
     let(:user) { build :user }
     let(:records) { build_list :book, 3 }
     let(:reason) { "reason" }
-    let(:tenant_id) { 1 }
 
     describe "#request_for_create" do
-      subject { user.request_for_create(records, reason: reason, tenant_id: tenant_id) }
+      subject { user.request_for_create(records, reason: reason) }
       it { is_expected.to be_a(Approval::RequestForm::Create) }
     end
 
     describe "#request_for_update" do
-      subject { user.request_for_update(records, reason: reason, tenant_id: tenant_id) }
+      subject { user.request_for_update(records, reason: reason) }
       it { is_expected.to be_a(Approval::RequestForm::Update) }
     end
 
     describe "#request_for_destroy" do
-      subject { user.request_for_destroy(records, reason: reason, tenant_id: tenant_id) }
+      subject { user.request_for_destroy(records, reason: reason) }
       it { is_expected.to be_a(Approval::RequestForm::Destroy) }
     end
 
     describe "#request_for_perform" do
-      subject { user.request_for_perform(records, reason: reason, tenant_id: tenant_id) }
+      subject { user.request_for_perform(records, reason: reason) }
       it { is_expected.to be_a(Approval::RequestForm::Perform) }
     end
   end
@@ -69,7 +68,6 @@ RSpec.describe User, type: :model do
     let(:reason) { "reason" }
 
     before do
-      request.tenant_id = 1
       request.save
     end
 

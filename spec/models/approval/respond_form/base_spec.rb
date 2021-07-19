@@ -8,7 +8,6 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
     let(:reason) { "reason" }
     let(:request) do
       build(:request, :pending).tap do |request|
-        request.tenant_id = 1
         request.comments << build(:comment, user: request.request_user)
         request.items << build(:item, :create)
         request.save!
@@ -29,7 +28,6 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
       let(:reason) { "" }
       let(:request) do
         build(:request, :pending).tap do |request|
-          request.tenant_id = 1
           request.comments << build(:comment, user: request.request_user)
           request.items << build(:item, :create)
           request.save!
@@ -44,7 +42,6 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
       let(:reason) { "reason" }
       let(:request) do
         build(:request, :pending).tap do |request|
-          request.tenant_id = 1
           request.comments << build(:comment, user: request.request_user)
           request.items << build(:item, :create)
           request.save!
@@ -61,7 +58,6 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
       let(:reason) { "" }
       let(:request) do
         build(:request, :pending).tap do |request|
-          request.tenant_id = 1
           request.comments << build(:comment, user: request.request_user)
           request.items << build(:item, :create)
           request.save!
@@ -76,7 +72,6 @@ RSpec.describe Approval::RespondForm::Base, type: :model do
       let(:reason) { "reason" }
       let(:request) do
         build(:request, :pending).tap do |request|
-          request.tenant_id = 1
           request.comments << build(:comment, user: request.request_user)
           request.items << build(:item, :create)
           request.save!

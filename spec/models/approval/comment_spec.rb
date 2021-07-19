@@ -12,7 +12,7 @@ RSpec.describe Approval::Comment, type: :model do
   end
 
   describe "factory" do
-    let(:request) { create(:request, :pending, :with_comments, :with_items, tenant_id: 1) }
+    let(:request) { create(:request, :pending, :with_comments, :with_items) }
 
     subject { build(:comment, request: request) }
     it { is_expected.to be_valid }

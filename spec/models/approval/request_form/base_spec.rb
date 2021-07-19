@@ -1,13 +1,12 @@
 require "spec_helper"
 
 RSpec.describe Approval::RequestForm::Base, type: :model do
-  let(:form) { described_class.new(user: user, reason: reason, records: records, tenant_id: 1) }
+  let(:form) { described_class.new(user: user, reason: reason, records: records) }
 
   describe "Validation" do
     let(:user) { create :user }
     let(:reason) { "reason" }
     let(:records) { build :book }
-    let(:tenant_id) { 1 }
 
     subject { form }
 
