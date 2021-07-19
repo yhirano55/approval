@@ -21,7 +21,7 @@ RSpec.describe Book, type: :model do
     end
 
     context "when attribute is nil" do
-      let(:book) { build :book , name: nil }
+      let(:book) { build :book, name: nil }
       let(:result) { book.attributes.except("id", "name", "created_at", "updated_at") }
       it { is_expected.to eq result }
     end

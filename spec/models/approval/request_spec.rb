@@ -38,7 +38,7 @@ RSpec.describe Approval::Request, type: :model do
   end
 
   describe "#execute" do
-    let(:request) { build :request, state}
+    let(:request) { build :request, state }
     let(:comment) { build :comment, request: request, user: request.request_user }
     let(:item) { build :item, :create, request: request }
 

@@ -16,7 +16,7 @@ ENV["RAILS_ROOT"] = File.expand_path("../tmp/rails-#{ENV["RAILS"]}", __dir__)
 system "rake setup" unless File.exist?(ENV["RAILS_ROOT"])
 
 # load test app
-require ENV["RAILS_ROOT"] + "/config/environment.rb"
+require "#{ENV["RAILS_ROOT"]}/config/environment.rb"
 
 # load RSpec
 require "rspec/rails"

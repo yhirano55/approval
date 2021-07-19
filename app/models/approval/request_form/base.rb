@@ -13,9 +13,9 @@ module Approval
         @tenant  = tenant
       end
 
-      validates :user, :records,  presence: true
+      validates :user, :records, presence: true
       validates :tenant, presence: true, if: :tenancy?
-      validates :reason,  presence: true, length: { maximum: Approval.config.comment_maximum }
+      validates :reason, presence: true, length: { maximum: Approval.config.comment_maximum }
 
       def save
         return false unless valid?

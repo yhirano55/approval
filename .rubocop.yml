@@ -7,7 +7,7 @@ inherit_gem:
     # - "config/rspec.yml"
 
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.7.2
   # uncomment if use rails cops
   # TargetRailsVersion: 5.1
   Exclude:

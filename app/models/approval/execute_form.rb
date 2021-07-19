@@ -12,7 +12,7 @@ module Approval
     end
 
     validates :user, :request, presence: true
-    validates :reason,  allow_blank: true, length: { maximum: Approval.config.comment_maximum }
+    validates :reason, allow_blank: true, length: { maximum: Approval.config.comment_maximum }
 
     validate :ensure_request_is_approved
     validate :ensure_user_same_as_request_user
