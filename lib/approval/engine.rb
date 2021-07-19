@@ -1,8 +1,10 @@
-require "rails"
+# frozen_string_literal: true
+
+require 'rails'
 
 module Approval
   class Engine < ::Rails::Engine
-    initializer "approval.mixins" do
+    initializer 'approval.mixins' do
       Rails.application.reloader.to_prepare do
         ActiveSupport.on_load :active_record do
           extend ::Approval::Mixins

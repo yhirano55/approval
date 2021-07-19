@@ -1,26 +1,32 @@
+# frozen_string_literal: true
+
 module Approval
   module ActsAsUser
     extend ActiveSupport::Concern
 
     included do
-      has_many :approval_requests, class_name: :"Approval::Request", foreign_key: :request_user_id
-      has_many :approval_comments, class_name: :"Approval::Comment", foreign_key: :user_id
+      has_many :approval_requests, class_name: :'Approval::Request', foreign_key: :request_user_id
+      has_many :approval_comments, class_name: :'Approval::Comment', foreign_key: :user_id
     end
 
     def request_for_create(records, reason:, tenant: nil)
-      Approval::RequestForm::Create.new(user: self, reason: reason, records: records, tenant: tenant)
+      Approval::RequestForm::Create.new(user: self, reason: reason, records: records,
+                                        tenant: tenant)
     end
 
     def request_for_update(records, reason:, tenant: nil)
-      Approval::RequestForm::Update.new(user: self, reason: reason, records: records, tenant: tenant)
+      Approval::RequestForm::Update.new(user: self, reason: reason, records: records,
+                                        tenant: tenant)
     end
 
     def request_for_destroy(records, reason:, tenant: nil)
-      Approval::RequestForm::Destroy.new(user: self, reason: reason, records: records, tenant: tenant)
+      Approval::RequestForm::Destroy.new(user: self, reason: reason, records: records,
+                                         tenant: tenant)
     end
 
     def request_for_perform(records, reason:, tenant: nil)
-      Approval::RequestForm::Perform.new(user: self, reason: reason, records: records, tenant: tenant)
+      Approval::RequestForm::Perform.new(user: self, reason: reason, records: records,
+                                         tenant: tenant)
     end
 
     def cancel_request(request, reason:)

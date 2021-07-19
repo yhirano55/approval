@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Approval
   module Mixins
     def acts_as_approval_resource(ignore_fields: [])

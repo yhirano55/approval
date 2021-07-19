@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Approval
   module RequestForm
     class Base
@@ -39,13 +41,13 @@ module Approval
 
       private
 
-        def prepare
-          raise NotImplementedError, "you must implement #{self.class}##{__method__}"
-        end
+      def prepare
+        raise NotImplementedError, "you must implement #{self.class}##{__method__}"
+      end
 
-        def tenancy?
-          ::Approval.config.tenancy
-        end
+      def tenancy?
+        ::Approval.config.tenancy
+      end
     end
   end
 end

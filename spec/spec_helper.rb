@@ -1,35 +1,37 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH << File.expand_path("support", __dir__)
+$LOAD_PATH << File.expand_path('support', __dir__)
 
-ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
 
-require "bundler"
+require 'bundler'
 Bundler.setup
 
-ENV["RAILS_ENV"] = "test"
+ENV['RAILS_ENV'] = 'test'
 
-require "rails"
-ENV["RAILS"] = Rails.version
-ENV["RAILS_ROOT"] = File.expand_path("../tmp/rails-#{ENV["RAILS"]}", __dir__)
+require 'rails'
+ENV['RAILS'] = Rails.version
+ENV['RAILS_ROOT'] = File.expand_path("../tmp/rails-#{ENV['RAILS']}", __dir__)
 
 # Create the test app if it doesn't exists
-system "rake setup" unless File.exist?(ENV["RAILS_ROOT"])
+system 'rake setup' unless File.exist?(ENV['RAILS_ROOT'])
 
 # load test app
-require "#{ENV["RAILS_ROOT"]}/config/environment.rb"
+require "#{ENV['RAILS_ROOT']}/config/environment.rb"
 
 # load RSpec
-require "rspec/rails"
+require 'rspec/rails'
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.expect_with :rspec do |expectations|
-    expectations.syntax = [:should, :expect]
+    expectations.syntax = %i[should expect]
   end
 
   config.mock_with :rspec do |mocks|
-    mocks.syntax = [:should, :expect]
+    mocks.syntax = %i[should expect]
   end
 
   config.order = :random
@@ -38,18 +40,18 @@ end
 
 FactoryBot.define do
   factory :user do
-    sequence(:name) {|n| "name#{n}" }
+    sequence(:name) { |n| "name#{n}" }
   end
 
   factory :book do
-    sequence(:name) {|n| "name#{n}" }
+    sequence(:name) { |n| "name#{n}" }
   end
 
   factory :tenant do
-    sequence(:name) {|n| "name#{n}" }
+    sequence(:name) { |n| "name#{n}" }
   end
 
-  factory :request, class: "Approval::Request" do
+  factory :request, class: 'Approval::Request' do
     association :request_user, factory: :user
 
     trait :pending do
@@ -89,30 +91,30 @@ FactoryBot.define do
     end
   end
 
-  factory :comment, class: "Approval::Comment" do
-    sequence(:content) {|n| "content#{n}" }
+  factory :comment, class: 'Approval::Comment' do
+    sequence(:content) { |n| "content#{n}" }
     request_id { 1 }
     association :user
   end
 
-  factory :item, class: "Approval::Item" do
+  factory :item, class: 'Approval::Item' do
     request_id { 1 }
 
     trait :create do
-      event { "create" }
-      resource_type { "Book" }
-      params { { name: "created_name" } }
+      event { 'create' }
+      resource_type { 'Book' }
+      params { { name: 'created_name' } }
     end
 
     trait :update do
       after(:build) do |item|
         book = create(:book)
         item.resource_id = book.id
-        item.params = { name: "updated_name" }
+        item.params = { name: 'updated_name' }
       end
 
-      event { "update" }
-      resource_type { "Book" }
+      event { 'update' }
+      resource_type { 'Book' }
     end
 
     trait :destroy do
@@ -121,14 +123,14 @@ FactoryBot.define do
         item.resource_id = book.id
       end
 
-      event { "destroy" }
-      resource_type { "Book" }
+      event { 'destroy' }
+      resource_type { 'Book' }
     end
 
     trait :perform do
-      event { "perform" }
-      resource_type { "Book" }
-      params { { name: "performed_name" } }
+      event { 'perform' }
+      resource_type { 'Book' }
+      params { { name: 'performed_name' } }
     end
   end
 end

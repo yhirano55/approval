@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Approval
   class Config
     attr_accessor :user_class_name, :comment_maximum,
@@ -5,7 +7,7 @@ module Approval
                   :tenancy
 
     def initialize
-      @user_class_name = "User"
+      @user_class_name = 'User'
       @comment_maximum = 2000
       @permit_to_respond_to_own_request = false
       @tenancy = false

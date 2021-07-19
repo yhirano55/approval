@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Approval
   module ActsAsResource
     extend ActiveSupport::Concern
@@ -6,7 +8,7 @@ module Approval
       class_attribute :approval_ignore_fields
       self.approval_ignore_fields = %w[id created_at updated_at]
 
-      has_many :approval_items, class_name: :"Approval::Item", as: :resource
+      has_many :approval_items, class_name: :'Approval::Item', as: :resource
     end
 
     class_methods do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Approval
   class ExecuteForm
     include ::ActiveModel::Model
@@ -31,29 +33,27 @@ module Approval
 
     private
 
-      def execute
-        instrument "execute" do |payload|
-          ::Approval::Request.transaction do
-            request.lock!
-            payload[:comment] = request.comments.new(user_id: user.id, content: reason) if reason
-            request.execute
-            yield(request)
-          end
+    def execute
+      instrument 'execute' do |payload|
+        ::Approval::Request.transaction do
+          request.lock!
+          payload[:comment] = request.comments.new(user_id: user.id, content: reason) if reason
+          request.execute
+          yield(request)
         end
       end
+    end
 
-      def ensure_request_is_approved
-        return unless request
+    def ensure_request_is_approved
+      return unless request
 
-        errors.add(:request, :is_not_approved) unless request.approved?
-      end
+      errors.add(:request, :is_not_approved) unless request.approved?
+    end
 
-      def ensure_user_same_as_request_user
-        return unless user && request
+    def ensure_user_same_as_request_user
+      return unless user && request
 
-        unless user.id == request.request_user_id
-          errors.add(:user, :cannot_execute_others_request)
-        end
-      end
+      errors.add(:user, :cannot_execute_others_request) unless user.id == request.request_user_id
+    end
   end
 end

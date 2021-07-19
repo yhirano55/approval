@@ -1,18 +1,90 @@
-inherit_gem:
-  onkcop:
-    - "config/rubocop.yml"
-    # uncomment if use rails cops
-    # - "config/rails.yml"
-    # uncomment if use rspec cops
-    # - "config/rspec.yml"
+require: rubocop-rails
 
 AllCops:
   TargetRubyVersion: 2.7.2
   # uncomment if use rails cops
   # TargetRailsVersion: 5.1
+  NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - "vendor/**/*"
     - "gemfiles/vendor/**/*" # Apprisal
     - "spec/rails/**/*"
     - "db/**/*"
     - "tmp/**/*"
+
+Layout/LineLength:
+  Max: 100
+
+Layout/SpaceBeforeBrackets:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/AbcSize:
+  Max: 32
+  Exclude:
+    - spec/system/*
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/ParameterLists:
+  Max: 6
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Rails:
+  Enabled: true
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context', 'it', class_methods, define, factory]
+  Exclude:
+    - spec/system/*
+    - app/models/pos/concerns/orders_statistics.rb
+
+Naming/VariableNumber:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Exclude:
+    - app/helpers/bulma/*
+    - app/helpers/ransack/*
+    - app/helpers/shared_form_builder_utils.rb
+
+Lint/EmptyBlock:
+  Exclude:
+    - spec/**/*
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*

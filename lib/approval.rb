@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Approval
   def self.config
     @config ||= Config.new
@@ -18,6 +20,6 @@ module Approval
   end
 end
 
-require "approval/config"
-require "approval/engine" if defined?(::Rails)
-require "approval/version"
+require 'approval/config'
+require 'approval/engine' if defined?(::Rails)
+require 'approval/version'

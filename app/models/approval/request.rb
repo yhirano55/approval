@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Approval
   class Request < ApplicationRecord
     self.table_name = :approval_requests
@@ -11,8 +13,8 @@ module Approval
       belongs_to :tenant, dependent: false
     end
 
-    has_many :comments, class_name: :"Approval::Comment", inverse_of: :request, dependent: :destroy
-    has_many :items,    class_name: :"Approval::Item",    inverse_of: :request, dependent: :destroy
+    has_many :comments, class_name: :'Approval::Comment', inverse_of: :request, dependent: :destroy
+    has_many :items,    class_name: :'Approval::Item',    inverse_of: :request, dependent: :destroy
 
     enum state: { pending: 0, cancelled: 1, approved: 2, rejected: 3, executed: 4 }
 
@@ -50,24 +52,22 @@ module Approval
     end
 
     def status
-      return "approved" if approved?
-      return "cancelled" if cancelled?
-      return "rejected" if rejected?
-      return "pending" if pending?
+      return 'approved' if approved?
+      return 'cancelled' if cancelled?
+      return 'rejected' if rejected?
+      return 'pending' if pending?
     end
 
     private
 
-      def ensure_state_was_pending
-        return unless persisted?
+    def ensure_state_was_pending
+      return unless persisted?
 
-        if %w[pending approved].exclude?(state_was)
-          errors.add(:base, :already_performed)
-        end
-      end
+      errors.add(:base, :already_performed) if %w[pending approved].exclude?(state_was)
+    end
 
-      def tenancy?
-        ::Approval.config.tenancy
-      end
+    def tenancy?
+      ::Approval.config.tenancy
+    end
   end
 end
