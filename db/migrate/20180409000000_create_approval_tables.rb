@@ -35,6 +35,7 @@ class CreateApprovalTables < ActiveRecord::Migration[5.0]
       t.integer :request_id, null: false
       t.integer :user_id,    null: false
       t.text    :content,    null: false
+      t.integer :type,    null: true
 
       t.timestamps
 

@@ -13,7 +13,9 @@ module Approval
             request.lock!
             request.assign_attributes(state: :approved, approved_at: Time.current,
                                       respond_user_id: user.id)
-            payload[:comment] = request.comments.new(user_id: user.id, content: reason)
+            payload[:comment] = request.comments.new(
+              user_id: user.id, content: reason, type: :response
+            )
             request.execute
             yield(request)
           end
