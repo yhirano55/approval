@@ -10,7 +10,7 @@ module Approval
     belongs_to :request, class_name: :'Approval::Request', inverse_of: :items
     belongs_to :resource, polymorphic: true, optional: true
 
-    serialize :params, Hash
+    serialize :params, type: Hash
 
     validates :resource_type, presence: true
     validates :resource_id,   presence: true, if: lambda { |item|
